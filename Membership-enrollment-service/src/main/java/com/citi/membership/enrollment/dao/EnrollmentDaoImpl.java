@@ -30,22 +30,41 @@ public class EnrollmentDaoImpl implements EnrollmentDao {
 
 
 		//4.Prepare the dao response
-		EnrollmentDaoResponse daoResponse=new EnrollmentDaoResponse();
-		if("0".equals(dbResponseCode)) {
-			//Response dao response with ResultSet
-			daoResponse.setAckNum("1212abc");
-			daoResponse.setEnrollmentStatus("Enrollment Successfull");
-			daoResponse.setResponseCode("0");
-			daoResponse.setResponseMsg("Success");
-			daoResponse.setDiscription("It is enrollment object call");
-		}else if("100".equals(dbResponseCode) ||"101".equals(dbResponseCode) ||"102".equals(dbResponseCode)) {
-			//TODO::handle  business exception
-			throw new BusinessException(dbResponseCode, dbResponseMsg);
+		EnrollmentDaoResponse daoResponse=null;;
+		try {
+			daoResponse = new EnrollmentDaoResponse();
+			if("0".equals(dbResponseCode)) {
+				//Response dao response with ResultSet
+				daoResponse.setAckNum("1212abc");
+				daoResponse.setEnrollmentStatus("Enrollment Successfull");
+				daoResponse.setResponseCode("0");
+				daoResponse.setResponseMsg("Success");
+				daoResponse.setDiscription("It is enrollment object call");
+			}else if("100".equals(dbResponseCode) ||"101".equals(dbResponseCode) ||"102".equals(dbResponseCode)) {
+				//TODO::handle  business exception
+				throw new BusinessException(dbResponseCode, dbResponseMsg);
 
-		}else {
-			//TODO::handle system exception
-			throw new SystemException(dbResponseCode, dbResponseMsg);
+			}else {
+				//TODO::handle system exception
+				throw new SystemException(dbResponseCode, dbResponseMsg);
+			}
+		} catch (BusinessException be) {
+			// TODO Auto-generated catch block
+			//Error log
+			be.printStackTrace();
+			throw be;
+		} catch (SystemException se) {
+			// TODO Auto-generated catch block
+			//Error log
+			se.printStackTrace();
+			throw se;
+		}catch(Exception e) {
+			// TODO Auto-generated catch block
+			//Error log
+			e.printStackTrace();
+			throw new SystemException("8888","Unknow Error from database "+e.getMessage());
 		}
+
 		System.out.println("Exit from dao--end"+daoResponse);
 
 		return daoResponse;

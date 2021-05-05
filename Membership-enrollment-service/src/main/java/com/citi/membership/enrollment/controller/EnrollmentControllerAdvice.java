@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.citi.membership.enrollment.exception.BusinessException;
 import com.citi.membership.enrollment.exception.EnrollmentRequestValidationException;
+import com.citi.membership.enrollment.exception.SystemException;
 import com.citi.membership.enrollment.model.EnrollmentResponse;
 import com.citi.membership.enrollment.model.StatusBlock;
 
@@ -34,6 +36,38 @@ public class EnrollmentControllerAdvice {
 		statusBlock.setResponseCode(exception.getResponseCode());
 		statusBlock.setResponseMsg(exception.getResponseMsg());
 		
+		enrollmentResponse.setStatusBlock(statusBlock);
+		
+		return enrollmentResponse;
+		
+	}
+	
+	@ExceptionHandler(value=SystemException.class)
+	@ResponseBody
+	public EnrollmentResponse handleSystemError(SystemException exception) {
+		
+		//TODO::need to implement error logs
+		
+		EnrollmentResponse enrollmentResponse=new EnrollmentResponse();
+		
+		StatusBlock statusBlock=new StatusBlock();
+		statusBlock.setResponseCode(exception.getResponseCode());
+		statusBlock.setResponseMsg(exception.getResponseMsg());
+		
+		enrollmentResponse.setStatusBlock(statusBlock);
+		
+		return enrollmentResponse;
+		
+	}
+	
+	@ExceptionHandler(value=BusinessException.class)
+	@ResponseBody
+	public EnrollmentResponse handleBusinessError(BusinessException exception) {
+		//TODO::need to implement error logs
+		EnrollmentResponse enrollmentResponse=new EnrollmentResponse();
+		StatusBlock statusBlock=new StatusBlock();
+		statusBlock.setResponseCode(exception.getResponseCode());
+		statusBlock.setResponseMsg(exception.getResponseMsg());
 		enrollmentResponse.setStatusBlock(statusBlock);
 		
 		return enrollmentResponse;

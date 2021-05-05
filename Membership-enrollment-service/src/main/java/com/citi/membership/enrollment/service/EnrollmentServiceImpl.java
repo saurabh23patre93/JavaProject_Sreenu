@@ -57,6 +57,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 		enrollmentDao.createEnrollment(daoRequest);
 
 		EnrollmentDaoResponse daoResponse=enrollmentDao.createEnrollment(daoRequest);
+		
 		//6.Prepare the service response with the help of dao.
 		EnrollmentResponse enrollmentResponse=new EnrollmentResponse(); 
 		StatusBlock statusBlock=new StatusBlock();
