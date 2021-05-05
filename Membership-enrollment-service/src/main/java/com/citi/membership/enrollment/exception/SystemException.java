@@ -10,6 +10,7 @@ package com.citi.membership.enrollment.exception;
  * Description::
  */
 public class SystemException extends Exception {
+	
 	private String responseCode;
 	private String responseMsg;
 	/**
@@ -17,7 +18,7 @@ public class SystemException extends Exception {
 	 * Construcotors::@param responseMsg
 	 */
 	public SystemException(String responseCode, String responseMsg) {
-		
+
 		this.responseCode = responseCode;
 		this.responseMsg = responseMsg;
 	}
@@ -37,6 +38,6 @@ public class SystemException extends Exception {
 	public String toString() {
 		return "SystemException [responseCode=" + responseCode + ", responseMsg=" + responseMsg + "]";
 	}
-	
-	
+
+
 }

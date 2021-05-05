@@ -17,18 +17,18 @@ import com.citi.membership.enrollment.model.EnrollmentDaoResponse;
 public class EnrollmentDaoImpl implements EnrollmentDao {
 
 	public EnrollmentDaoResponse createEnrollment(EnrollmentDaoRequest enrollmentDaoRequest) throws BusinessException, SystemException  {
-		
+
 		System.out.println("Enter into dao--start");
 		//1.Get the request from service
-		
+
 		//2.Prepare the request for db i.e. prepare the db queries
-		
+
 		//3.Call db and get the db response i.e. Resultset
-		
+
 		String dbResponseCode="0";//replace with db Resposense
 		String dbResponseMsg="success";
-		
-		
+
+
 		//4.Prepare the dao response
 		EnrollmentDaoResponse daoResponse=new EnrollmentDaoResponse();
 		if("0".equals(dbResponseCode)) {
@@ -41,13 +41,13 @@ public class EnrollmentDaoImpl implements EnrollmentDao {
 		}else if("100".equals(dbResponseCode) ||"101".equals(dbResponseCode) ||"102".equals(dbResponseCode)) {
 			//TODO::handle  business exception
 			throw new BusinessException(dbResponseCode, dbResponseMsg);
-		
+
 		}else {
 			//TODO::handle system exception
 			throw new SystemException(dbResponseCode, dbResponseMsg);
 		}
-			System.out.println("Exit from dao--end"+daoResponse);
-		
+		System.out.println("Exit from dao--end"+daoResponse);
+
 		return daoResponse;
 	}
 
